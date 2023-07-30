@@ -48,6 +48,5 @@ button[type="submit"]{
 }
 
 .reset:hover{
-  background-color: rgb(36, 24, 24);
-  border:none;
+  border:rgb(36, 24, 24);
 }
