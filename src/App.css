@@ -1,0 +1,53 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+form{
+  display:flex;
+  width:100%;
+}
+input[type="text"]{
+  width:100%;
+  border-radius: 8px 0 0 8px;
+  outline:none;
+  border:none;
+  padding-left:14px;
+}
+.container{
+  display:grid;
+  place-items: start;
+  gap:20px;
+}
+
+.todo-item{
+  width:100%;
+  display: flex;
+  align-items: center;
+  gap:4px;
+
+}
+
+.todo-item span{
+  flex:1;
+  text-align: left;
+}
+
+.item-button{
+  padding:16px;
+  font-size:10px;
+}
+button[type="submit"]{
+  background-color: #646cff;
+  border-radius: 0;
+}
+.reset{
+  border-radius: 0 8px 8px 0;
+}
+
+.reset:hover{
+  background-color: rgb(36, 24, 24);
+  border:none;
+}
