@@ -2,6 +2,36 @@ import React, { useState, useEffect, useRef } from 'react';
 import { EditIcon, SmallAddIcon, DeleteIcon } from '@chakra-ui/icons';
 import './App.css';
 
+//todoitem component that contains checkbox, the task, remove and edit button
+const ToDoItem =({ todoitem, handleCheckbox, handleEdit, handleRemoveTodo })=>{
+  return(
+    <div className="todo-item" key={todoitem.id}>
+    <input
+      type="checkbox"
+      checked={todoitem.isCompleted}
+      onChange={() => handleCheckbox(todoitem.id)}
+    />
+    <span
+      style={todoitem.isCompleted ? { textDecoration: 'line-through' } : null}
+    >
+      {todoitem.text}
+    </span>
+
+    <button className="item-button"
+      onClick={() => {
+        const editedText = prompt('Edit the task:', todoitem.text);
+        if (editedText !== null) {
+          handleEdit(todoitem.id, editedText);
+        }
+      }}
+    >
+      <EditIcon />
+    </button>
+    <button className="item-button" onClick={() => handleRemoveTodo(todoitem.id)}><DeleteIcon /></button>
+  </div>
+  )
+}
+
 const App = () => {
   // State to manage the list of todos
   const [todos, setTodos] = useState(() => {
@@ -41,9 +71,8 @@ const App = () => {
   // Add a new todo to the list
   const handleAddTodo = () => {
     if (todo.text.trim() === '') {
-      return; // Prevent adding empty todos
+      return; 
     }
-
     setTodos([...todos, todo]);
     setTodo({ text: '', id: Date.now(), isCompleted: false });
     inputRef.current.focus();
@@ -106,30 +135,12 @@ const App = () => {
         </form>
 
         {todos.map((todoitem) => (
-          <div className="todo-item" key={todoitem.id}>
-            <input
-              type="checkbox"
-              checked={todoitem.isCompleted}
-              onChange={() => handleCheckbox(todoitem.id)}
+          <ToDoItem 
+            todoitem={todoitem} 
+            handleCheckbox={handleCheckbox} 
+            handleEdit={handleEdit}
+            handleRemoveTodo={handleRemoveTodo}
             />
-            <span
-              style={todoitem.isCompleted ? { textDecoration: 'line-through' } : null}
-            >
-              {todoitem.text}
-            </span>
-
-            <button className="item-button"
-              onClick={() => {
-                const editedText = prompt('Edit the task:', todoitem.text);
-                if (editedText !== null) {
-                  handleEdit(todoitem.id, editedText);
-                }
-              }}
-            >
-              <EditIcon />
-            </button>
-            <button className="item-button" onClick={() => handleRemoveTodo(todoitem.id)}><DeleteIcon /></button>
-          </div>
         ))}
       </div>
     </>
